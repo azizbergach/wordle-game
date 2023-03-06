@@ -1,0 +1,23 @@
+{
+  "name": "wordle-game-api",
+  "version": "1.0.0",
+  "description": "get wordle game words and verify them",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wordle",
+    "game",
+    "api"
+  ],
+  "author": "aziz bergach",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.2"
+  }
+}
