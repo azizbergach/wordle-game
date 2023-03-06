@@ -19,6 +19,18 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    const auth_host = req.headers['x-rapidapi-host'];
+    const auth_key = req.headers['x-rapidapi-key'];
+    const { RAPID_API_URL, RAPID_API_KEY } = process.env;
+    console.log(req.headers);
+
+    if (auth_host !== RAPID_API_URL || auth_key !== RAPID_API_KEY) {
+        return res.status(500).send('access denied');
+    }
+
+    next()
+})
 
 app.post('/guess', (req, res) => {
     const guess = req.body.guess;
@@ -47,6 +59,7 @@ app.post('/guess', (req, res) => {
 });
 
 app.get('/word', (req, res) => {
+
     res.send(words[rand])
 })
 
