@@ -22,10 +22,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     const auth_host = req.headers['x-rapidapi-host'];
     const auth_key = req.headers['x-rapidapi-key'];
-    const { RAPID_API_URL, RAPID_API_KEY } = process.env;
-    console.log(req.headers);
+    const secret = req.headers['X-RapidAPI-Proxy-Secret'];
+    const { RAPID_API_URL, RAPID_API_KEY, SECRET } = process.env;
+ 
 
-    if (auth_host !== RAPID_API_URL || auth_key !== RAPID_API_KEY) {
+    if (auth_host !== RAPID_API_URL || auth_key !== RAPID_API_KEY || secret !== SECRET) {
         return res.status(500).send('access denied');
     }
 
