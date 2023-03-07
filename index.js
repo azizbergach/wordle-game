@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     const auth_key = req.headers['x-rapidapi-key'];
     const secret = req.headers['x-rapidapi-proxy-secret'];
     const { RAPID_API_URL, RAPID_API_KEY, SECRET } = process.env;
-
+console.log(secret, SECRET);
 
     if (auth_host !== RAPID_API_URL || auth_key !== RAPID_API_KEY || secret !== SECRET) {
         return res.status(500).send('access denied');
