@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     const auth_host = req.headers['x-rapidapi-host'];
     const auth_key = req.headers['x-rapidapi-key'];
-    const secret = req.headers['X-RapidAPI-Proxy-Secret'];
+    const secret = req.headers['x-rapidapi-proxy-secret'];
     const { RAPID_API_URL, RAPID_API_KEY, SECRET } = process.env;
- 
+
 
     if (auth_host !== RAPID_API_URL || auth_key !== RAPID_API_KEY || secret !== SECRET) {
         return res.status(500).send('access denied');
@@ -37,11 +37,11 @@ app.post('/guess', (req, res) => {
     const guess = req.body.guess;
     console.log(req.body);
     if (!guess || guess.length !== 5) {
-        return res.status(400).send('Invalid guess');
+        return res.status(400).send({error: 'Invalid guess'});
     }
 
     if (words.indexOf(guess) === -1) {
-        return res.status(406).send('Invalid word');
+        return res.status(406).send({error: 'Invalid word'});
     }
 
     let result = '';
@@ -56,12 +56,12 @@ app.post('/guess', (req, res) => {
         }
     }
 
-    res.send(result);
+    res.send({ result });
 });
 
 app.get('/word', (req, res) => {
 
-    res.send(words[rand])
+    res.send({ word: words[rand] })
 })
 
 const { PORT } = process.env;
