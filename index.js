@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     const auth_host = req.headers['x-rapidapi-host'];
-    const auth_key = req.headers['x-rapidapi-key'];
+    const auth_key = req.headers['x-rapidapi-proxy-secret'];
     const { RAPID_API_URL, RAPID_API_KEY } = process.env;
     console.log(req.headers);
     
