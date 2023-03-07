@@ -56,7 +56,7 @@ app.post('/guess', (req, res) => {
         }
     }
 
-    res.send({ result });
+    res.send({ guess, result });
 });
 
 app.get('/word', (req, res) => {
