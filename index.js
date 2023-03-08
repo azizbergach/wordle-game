@@ -22,13 +22,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/guess', (req, res) => {
     const guess = req.body.guess;
-    console.log(req.body);
-    if (!guess || guess.length !== 5) {
-        return res.status(400).send({error: 'Invalid guess'});
+   
+    if (!guess) {
+        return res.json({error: 'guess not provided'});
+    }
+    if (guess.length !== 5) {
+        return res.json({error: 'guess must be five-letter word'});
     }
 
     if (words.indexOf(guess) === -1) {
-        return res.status(406).send({error: 'Invalid word'});
+        return res.json({error: 'Invalid word'});
     }
 
     let result = '';
@@ -43,12 +46,12 @@ app.post('/guess', (req, res) => {
         }
     }
 
-    res.send({ guess, result });
+    res.json({ guess, result });
 });
 
 app.get('/word', (req, res) => {
 
-    res.send({ word: words[rand] })
+    res.json({ word: words[rand] })
 })
 
 const { PORT } = process.env;
